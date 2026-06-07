@@ -1,4 +1,8 @@
+{ lib, config, ... }:
+
 let
+  cfg = config.my.nixos.impermanence;
+
   persistedDirectories = [
     "/var/lib/flatpak"
     { directory = "/var/lib/tailscale"; mode = "0700"; }
@@ -22,13 +26,17 @@ let
   ) persistedDirectories;
 in
 {
-  environment.persistence."/persist/system" = {
-    hideMounts = true;
-    directories = persistedDirectories;
-  };
+  options.my.nixos.impermanence.enable = lib.mkEnableOption "impermanence persistence";
 
-  fileSystems = builtins.listToAttrs (map (directory: {
-    name = directory;
-    value.fsType = "none";
-  }) persistedDirectoryPaths);
+  config = lib.mkIf cfg.enable {
+    environment.persistence."/persist/system" = {
+      hideMounts = true;
+      directories = persistedDirectories;
+    };
+
+    fileSystems = builtins.listToAttrs (map (directory: {
+      name = directory;
+      value.fsType = "none";
+    }) persistedDirectoryPaths);
+  };
 }

@@ -22,6 +22,7 @@ in
   networking.hostName = "valendia";
 
   my.nixos = {
+    impermanence.enable = true;
     profiles.linuxDesktop.enable = true;
     sunshine.enable = true;
   };

@@ -22,6 +22,7 @@
   networking.hostName = "rabanastre";
 
   my.nixos = {
+    impermanence.enable = true;
     profiles.linuxDesktop.enable = true;
     tailscale.enable = true;
     cachixCache = {
