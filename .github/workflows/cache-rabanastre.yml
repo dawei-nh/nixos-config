@@ -1,0 +1,49 @@
+name: Cache rabanastre
+
+on:
+  push:
+    paths:
+      - flake.lock
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and cache rabanastre
+    runs-on:
+      - self-hosted
+    env:
+      CACHIX_CACHE_NAME: ${{ vars.CACHIX_CACHE_NAME }}
+      USER: root
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+
+      - name: Configure Cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: ${{ env.CACHIX_CACHE_NAME }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Build rabanastre kernel
+        run: |
+          nix build .#nixosConfigurations.rabanastre.config.boot.kernelPackages.kernel \
+            --out-link result-kernel \
+            --show-trace \
+            --accept-flake-config
+
+      - name: Build rabanastre module tree
+        run: |
+          nix build .#nixosConfigurations.rabanastre.config.system.modulesTree \
+            --out-link result-modules \
+            --show-trace \
+            --accept-flake-config
+
+      - name: Push kernel closures
+        run: cachix push "$CACHIX_CACHE_NAME" result-kernel result-modules
