@@ -10,6 +10,12 @@
     homeDirectory = "/Users/david.huynh";
     packageTiers = [
       "core"
+      "archives"
+      "cli"
+      "networking"
+      "unix"
+      "fonts"
+      "dev"
       "mac"
     ];
   };
