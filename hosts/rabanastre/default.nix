@@ -39,6 +39,8 @@
 
   hardware.microsoft-surface.kernelVersion = "stable";
 
+  users.users.dawei.extraGroups = [ "surface-control" ];
+
   programs.partition-manager.enable = true;
 
   system.stateVersion = "23.05";

@@ -8,6 +8,11 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.networkmanager.enable = true;
+    programs.nix-ld.enable = true;
+    services.flatpak.enable = true;
+    virtualisation.docker.enable = true;
+
+    users.users.dawei.extraGroups = [ "docker" ];
 
     my.nixos = {
       desktop.plasma.enable = true;

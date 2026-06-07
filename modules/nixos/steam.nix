@@ -10,5 +10,6 @@
       gamescopeSession.enable = true;
       remotePlay.openFirewall = true;
     };
+    users.users.dawei.extraGroups = [ "gamemode" ];
   };
 }

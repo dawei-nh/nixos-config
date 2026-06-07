@@ -13,8 +13,6 @@
   environment.enableAllTerminfo = true;
   hardware.enableRedistributableFirmware = true;
   networking.domain = lib.mkDefault "ivalice.local";
-  programs.nix-ld.enable = true;
-  virtualisation.docker.enable = true;
 
   i18n = {
     defaultLocale = lib.mkDefault "en_US.UTF-8";
@@ -24,9 +22,8 @@
 
   users.users.dawei = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "surface-control" "docker" ];
+    extraGroups = [ "wheel" ];
   };
 
   environment.variables.EDITOR = "vim";
-  services.flatpak.enable = true;
 }
