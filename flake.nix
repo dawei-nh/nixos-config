@@ -59,6 +59,11 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    xivlauncher-rb = {
+      url = "github:dawei-nh/xivlauncher-rb-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
