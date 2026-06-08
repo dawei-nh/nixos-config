@@ -9,6 +9,12 @@ in
   config = lib.mkIf cfg.enable {
     my.home.packageTiers = lib.mkDefault [
       "core"
+      "archives"
+      "cli"
+      "networking"
+      "unix"
+      "fonts"
+      "dev"
       "devops"
       "linuxDesktop"
     ];

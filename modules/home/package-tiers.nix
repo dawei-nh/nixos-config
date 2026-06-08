@@ -3,19 +3,47 @@
 let
   cfg = config.my.home;
 
+  basePackageTiers = [
+    "core"
+    "archives"
+    "cli"
+    "networking"
+    "unix"
+    "fonts"
+    "dev"
+  ];
+
   tierPackages = {
     core = with pkgs; [
       hyfetch
       nnn
+      file
+      which
+      tree
+      vim
+    ];
+
+    archives = with pkgs; [
       zip
       xz
       unzip
       p7zip
+      zstd
+    ];
+
+    cli = with pkgs; [
       ripgrep
       jq
       yq-go
       eza
       fzf
+      gnupg
+      nix-output-monitor
+      btop
+      lsof
+    ];
+
+    networking = with pkgs; [
       mtr
       iperf3
       dnsutils
@@ -23,22 +51,22 @@ let
       socat
       nmap
       ipcalc
-      file
-      which
-      tree
+      iftop
+    ];
+
+    unix = with pkgs; [
       gnused
       gnutar
       gawk
-      zstd
-      gnupg
-      nix-output-monitor
-      btop
-      iftop
-      lsof
-      vim
+    ];
+
+    fonts = with pkgs; [
       dejavu_fonts
       powerline-fonts
       font-awesome
+    ];
+
+    dev = with pkgs; [
       pre-commit
     ];
 
@@ -79,13 +107,11 @@ let
 
     mac = with pkgs; [
       bat
-      eza
       git
       htop
       python3
       screen
       wget
-      vim
       colima
       docker
     ];
@@ -98,8 +124,8 @@ in
 {
   options.my.home.packageTiers = lib.mkOption {
     type = lib.types.listOf (lib.types.enum (builtins.attrNames tierPackages));
-    default = [ "core" ];
+    default = basePackageTiers;
   };
 
-  config.home.packages = lib.concatLists (map (tier: tierPackages.${tier}) cfg.packageTiers);
+  config.home.packages = lib.unique (lib.concatLists (map (tier: tierPackages.${tier}) cfg.packageTiers));
 }

@@ -9,6 +9,12 @@
     profiles.linuxDesktop.enable = true;
     packageTiers = [
       "core"
+      "archives"
+      "cli"
+      "networking"
+      "unix"
+      "fonts"
+      "dev"
       "devops"
       "linuxDesktop"
       "gaming"
