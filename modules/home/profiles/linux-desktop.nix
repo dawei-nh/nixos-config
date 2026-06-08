@@ -29,5 +29,10 @@ in
       discord.enable = lib.mkDefault true;
       media.enable = lib.mkDefault true;
     };
+
+    home.file.".config/kscreenlockerrc".text = ''
+      [Daemon]
+      LockOnResume=false
+    '';
   };
 }
