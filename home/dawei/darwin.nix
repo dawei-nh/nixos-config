@@ -16,6 +16,7 @@
       "unix"
       "fonts"
       "dev"
+      "devops"
       "mac"
     ];
   };

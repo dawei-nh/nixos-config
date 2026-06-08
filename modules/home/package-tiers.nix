@@ -81,8 +81,10 @@ let
       checkov
       tfswitch
       terraform
+      terragrunt
       terraform-docs
       tflint
+      opentofu
     ];
 
     linuxDesktop = with pkgs; [
