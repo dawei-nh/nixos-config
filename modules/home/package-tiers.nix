@@ -76,6 +76,12 @@ let
       kubelogin
       kubernetes-helm
       k9s
+      (azure-cli.withExtensions [
+        azure-cli.extensions.aks-preview
+        azure-cli.extensions.azure-devops
+        azure-cli.extensions.fleet
+        azure-cli.extensions.terraform
+      ])
       azure-functions-core-tools
       awscli2
       checkov
