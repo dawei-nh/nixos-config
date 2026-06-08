@@ -81,6 +81,24 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -206,6 +224,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
+        "xivlauncher-rb": "xivlauncher-rb",
         "zen-browser": "zen-browser"
       }
     },
@@ -227,6 +246,62 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "xivlauncher-core-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780194850,
+        "narHash": "sha256-ErTNmxnHJyzeJBvVWHi+8MiU6HgsWojsWxdg12yBorA=",
+        "ref": "refs/tags/rb-v1.4.0.7",
+        "rev": "26db31a364da7c0be481eeb17d5aea9ea540d461",
+        "revCount": 672,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/rankynbass/XIVLauncher.Core.git"
+      },
+      "original": {
+        "ref": "refs/tags/rb-v1.4.0.7",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/rankynbass/XIVLauncher.Core.git"
+      }
+    },
+    "xivlauncher-rb": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "xivlauncher-core-src": "xivlauncher-core-src"
+      },
+      "locked": {
+        "lastModified": 1780885311,
+        "narHash": "sha256-7ytHUoOQwcx3nUMfzhaDCpL5LyFs2s+BiBBWJSZ/ksU=",
+        "owner": "dawei-nh",
+        "repo": "xivlauncher-rb-nix",
+        "rev": "e6b43b70a7bff3856210a9fedc50f8926a367bca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dawei-nh",
+        "repo": "xivlauncher-rb-nix",
         "type": "github"
       }
     },

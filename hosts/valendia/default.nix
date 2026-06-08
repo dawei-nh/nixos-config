@@ -25,6 +25,7 @@ in
     impermanence.enable = true;
     profiles.linuxDesktop.enable = true;
     sunshine.enable = true;
+    steam.enable = true;
   };
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;

@@ -1,7 +1,8 @@
-{ lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, ... }:
 
 let
   cfg = config.my.home;
+  xivlauncher-rb = inputs.xivlauncher-rb.packages.${pkgs.stdenv.hostPlatform.system}.xivlauncher-rb or null;
 
   basePackageTiers = [
     "core"
@@ -103,7 +104,7 @@ let
       protonup-qt
       umu-launcher
       wowup-cf
-    ];
+    ] ++ lib.optional (xivlauncher-rb != null) xivlauncher-rb;
 
     mac = with pkgs; [
       bat

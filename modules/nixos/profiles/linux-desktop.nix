@@ -16,7 +16,6 @@ in
 
     my.nixos = {
       desktop.plasma.enable = true;
-      steam.enable = true;
       pipewire.enable = true;
       fstrim.enable = true;
       nautilus.enable = true;
