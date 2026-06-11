@@ -1,5 +1,9 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
+let
+  primaryUser = "david.huynh";
+  bashLoginShell = "/run/current-system/sw${pkgs.bashInteractive.shellPath}";
+in
 {
   nix = {
     gc = {
@@ -21,19 +25,34 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
 
-  programs.zsh.enable = true;
+  programs = {
+    bash.enable = true;
+    zsh.enable = true;
+  };
 
   environment.variables = {
     EDITOR = "vim";
     MOZ_LEGACY_PROFILES = "1";
   };
+  environment.shells = [
+    pkgs.bashInteractive
+  ];
 
-  users.users."david.huynh" = {
-    name = "david.huynh";
-    home = "/Users/david.huynh";
+  users.users.${primaryUser} = {
+    name = primaryUser;
+    home = "/Users/${primaryUser}";
+    shell = pkgs.bashInteractive;
   };
 
-  system.primaryUser = "david.huynh";
+  system.primaryUser = primaryUser;
+
+  system.activationScripts.setPrimaryUserShell.text = ''
+    current_shell=$(/usr/bin/dscl . -read /Users/${primaryUser} UserShell 2>/dev/null | /usr/bin/awk '{ print $2 }' || true)
+    if [ "$current_shell" != "${bashLoginShell}" ]; then
+      echo "setting ${primaryUser} login shell to ${bashLoginShell}..." >&2
+      /usr/bin/dscl . -create /Users/${primaryUser} UserShell "${bashLoginShell}"
+    fi
+  '';
 
   system.defaults.NSGlobalDomain = {
     AppleShowAllExtensions = true;

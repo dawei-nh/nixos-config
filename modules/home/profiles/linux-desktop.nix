@@ -32,6 +32,7 @@ in
 
     home.file.".config/kscreenlockerrc".text = ''
       [Daemon]
+      Autolock=false
       LockOnResume=false
     '';
   };
