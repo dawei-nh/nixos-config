@@ -24,11 +24,16 @@ in
           hostModule
           inputs.home-manager.nixosModules.home-manager
           {
+            home-manager.backupFileExtension = "backup";
+          }
+          {
             networking.hostName = lib.mkDefault hostName;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; } // extraHomeSpecialArgs;
             home-manager.users.${homeUser}.imports = [
+              inputs.plasma-manager.homeModules.plasma-manager
+              ../modules/home/features/plasma-panel.nix
               homeModule
             ];
           }

@@ -30,6 +30,11 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     omp-nix = {
       url = "git+https://git.molez.org/mandlm/omp-nix";
       inputs.nixpkgs.follows = "nixpkgs";

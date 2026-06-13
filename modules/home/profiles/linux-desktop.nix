@@ -28,12 +28,14 @@ in
       vscode.enable = lib.mkDefault true;
       discord.enable = lib.mkDefault true;
       media.enable = lib.mkDefault true;
+      plasma.enable = lib.mkDefault true;
     };
 
     home.file.".config/kscreenlockerrc".text = ''
       [Daemon]
       Autolock=false
       LockOnResume=false
+      Timeout=0
     '';
   };
 }
