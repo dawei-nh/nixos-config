@@ -30,6 +30,15 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    omp-nix = {
+      url = "git+https://git.molez.org/mandlm/omp-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    codex-cli-nix = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     impermanence = {
       url = "github:nix-community/impermanence/home-manager-v1";
