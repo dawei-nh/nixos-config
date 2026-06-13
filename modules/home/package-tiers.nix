@@ -3,7 +3,6 @@
 let
   cfg = config.my.home;
   xivlauncher-rb = inputs.xivlauncher-rb.packages.${pkgs.stdenv.hostPlatform.system}.xivlauncher-rb or null;
-  omp = inputs.omp-nix.packages.${pkgs.stdenv.hostPlatform.system}.default;
   codex = inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   basePackageTiers = [
@@ -42,7 +41,6 @@ let
       fzf
       gnupg
       gh
-      omp
       codex
       nix-output-monitor
       btop
