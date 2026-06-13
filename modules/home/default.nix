@@ -7,6 +7,7 @@
     ./features/git.nix
     ./features/ghostty.nix
     ./features/media.nix
+    ./features/plasma.nix
     ./features/omp.nix
     ./features/shell.nix
     ./features/sketchybar.nix
