@@ -87,7 +87,7 @@ let
       ])
       azure-functions-core-tools
       awscli2
-      checkov
+      # checkov
       tfswitch
       terraform
       terragrunt
