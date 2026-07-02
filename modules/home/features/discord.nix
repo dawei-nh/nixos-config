@@ -6,7 +6,6 @@
   config = lib.mkIf config.my.features.discord.enable {
     home.packages = with pkgs; [
       discord
-      vesktop
       webcord
     ];
   };

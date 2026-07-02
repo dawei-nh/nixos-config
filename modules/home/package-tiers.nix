@@ -107,6 +107,7 @@ let
       usbutils
       cura-appimage
       orca-slicer
+      runelite
     ];
 
     gaming = with pkgs; [
