@@ -34,9 +34,6 @@ in
     EDITOR = "vim";
     MOZ_LEGACY_PROFILES = "1";
   };
-  environment.shells = [
-    pkgs.bashInteractive
-  ];
 
   users.users.${primaryUser} = {
     name = primaryUser;
