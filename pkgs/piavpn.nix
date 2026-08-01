@@ -25,10 +25,26 @@
   util-linux,
   coreutils,
   xkeyboardconfig,
+  wireguard-tools,
   installOutDir ? "$out/opt/piavpn",
   ...
 }:
-
+let
+  runtimeTools = [
+    bash
+    iptables
+    psmisc
+    iproute2
+    gawk
+    mount
+    systemd
+    openresolv
+    util-linux
+    coreutils
+    wireguard-tools
+  ];
+  runtimeToolDirs = lib.concatMapStringsSep " " (tool: "${tool}/bin ${tool}/sbin") runtimeTools;
+in
 stdenv.mkDerivation rec {
   pname = "piavpn";
   version = "3.7.2-08420";
@@ -105,22 +121,19 @@ stdenv.mkDerivation rec {
     cp source/installfiles/*.sh ${installOutDir}/bin/
     patchShebangs ${installOutDir}/bin
 
+    mkdir -p ${installOutDir}/nix-bin
+    for dir in ${runtimeToolDirs}; do
+      if [ -d "$dir" ]; then
+        for executable in "$dir"/*; do
+          [ -e "$executable" ] || continue
+          ln -sf "$executable" ${installOutDir}/nix-bin/
+        done
+      fi
+    done
+
     for binary in pia-client pia-daemon pia-hnsd pia-openvpn pia-ss-local pia-support-tool pia-unbound pia-wireguard-go piactl support-tool-launcher; do
       makeWrapper ${installOutDir}/bin/$binary ${installOutDir}/bin/$binary-wrapped \
-        --prefix PATH : "${
-          lib.makeBinPath [
-            bash
-            iptables
-            psmisc
-            iproute2
-            gawk
-            mount
-            systemd
-            openresolv
-            util-linux
-            coreutils
-          ]
-        }" \
+        --prefix PATH : "${lib.makeBinPath runtimeTools}" \
         --prefix LD_LIBRARY_PATH : "${
           lib.makeLibraryPath [
             installOutDir
@@ -151,6 +164,7 @@ stdenv.mkDerivation rec {
     groupName = pname;
     libDir = "${installOutDir}/lib";
     piaOptDir = "/opt/piavpn";
+    runtimePath = "/opt/piavpn/nix-bin:/opt/piavpn/bin:/run/wrappers/bin";
   };
 
   meta = {

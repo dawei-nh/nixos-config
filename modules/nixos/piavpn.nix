@@ -52,22 +52,13 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
-      path = with pkgs; [
-        coreutils
-        gawk
-        iproute2
-        iptables
-        mount
-        openresolv
-        psmisc
-        systemd
-        util-linux
-        wireguard-tools
-      ];
 
       serviceConfig = {
         Type = "simple";
-        Environment = "LD_LIBRARY_PATH=${cfg.package.piaOptDir}/lib";
+        Environment = [
+          "LD_LIBRARY_PATH=${cfg.package.piaOptDir}/lib"
+          "PATH=${cfg.package.runtimePath}"
+        ];
         ExecStart = "${cfg.package.piaOptDir}/bin/pia-daemon";
         Restart = "always";
         User = "root";
@@ -86,6 +77,7 @@ in
       "L+ ${cfg.package.piaOptDir}/plugins - - - - ${cfg.package}${cfg.package.piaOptDir}/plugins"
       "L+ ${cfg.package.piaOptDir}/qml - - - - ${cfg.package}${cfg.package.piaOptDir}/qml"
       "L+ ${cfg.package.piaOptDir}/share - - - - ${cfg.package}${cfg.package.piaOptDir}/share"
+      "L+ ${cfg.package.piaOptDir}/nix-bin - - - - ${cfg.package}${cfg.package.piaOptDir}/nix-bin"
     ];
 
     environment.etc."apport/blacklist.d/piavpn".text = ''
