@@ -102,6 +102,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p ${installOutDir}
     cp -a source/piafiles/. ${installOutDir}/
+    cp source/installfiles/*.sh ${installOutDir}/bin/
     patchShebangs ${installOutDir}/bin
 
     for binary in pia-client pia-daemon pia-hnsd pia-openvpn pia-ss-local pia-support-tool pia-unbound pia-wireguard-go piactl support-tool-launcher; do

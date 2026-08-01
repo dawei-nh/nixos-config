@@ -26,7 +26,10 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [
+      cfg.package
+      pkgs.wireguard-tools
+    ];
 
     networking = {
       wireguard.enable = true;
@@ -59,6 +62,7 @@ in
         psmisc
         systemd
         util-linux
+        wireguard-tools
       ];
 
       serviceConfig = {
