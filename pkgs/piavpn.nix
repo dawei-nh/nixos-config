@@ -150,7 +150,8 @@ stdenv.mkDerivation rec {
     cp source/installfiles/app-icon.png $out/share/icons/hicolor/128x128/apps/piavpn.png
 
     substituteInPlace ${installOutDir}/bin/openvpn-updown.sh \
-      --replace-fail "/usr/bin/busctl" "${systemd}/bin/busctl"
+      --replace-fail "/usr/bin/busctl" "${systemd}/bin/busctl" \
+      --replace-fail 'dns_servers="$(echo $1 | tr : \ )"' 'dns_servers="$(echo $1 | ${coreutils}/bin/tr : \ )"'
 
     mkdir -p $out/bin
     for binary in piactl pia-client; do

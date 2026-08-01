@@ -78,6 +78,7 @@ in
       "L+ ${cfg.package.piaOptDir}/qml - - - - ${cfg.package}${cfg.package.piaOptDir}/qml"
       "L+ ${cfg.package.piaOptDir}/share - - - - ${cfg.package}${cfg.package.piaOptDir}/share"
       "L+ ${cfg.package.piaOptDir}/nix-bin - - - - ${cfg.package}${cfg.package.piaOptDir}/nix-bin"
+      "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash"
     ];
 
     environment.etc."apport/blacklist.d/piavpn".text = ''
