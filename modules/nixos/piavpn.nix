@@ -49,10 +49,23 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
+      path = with pkgs; [
+        coreutils
+        gawk
+        iproute2
+        iptables
+        mount
+        openresolv
+        psmisc
+        systemd
+        util-linux
+      ];
+
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package.piaOptDir}/bin/pia-daemon-wrapped";
-        Restart = "on-failure";
+        Environment = "LD_LIBRARY_PATH=${cfg.package.piaOptDir}/lib";
+        ExecStart = "${cfg.package.piaOptDir}/bin/pia-daemon";
+        Restart = "always";
         User = "root";
         Group = "root";
       };
