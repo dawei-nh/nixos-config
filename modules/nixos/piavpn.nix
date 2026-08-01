@@ -56,7 +56,7 @@ in
       serviceConfig = {
         Type = "simple";
         Environment = [
-          "LD_LIBRARY_PATH=${cfg.package.piaOptDir}/lib"
+          "LD_LIBRARY_PATH=${cfg.package.runtimeLibPath}"
           "PATH=${cfg.package.runtimePath}"
         ];
         ExecStart = "${cfg.package.piaOptDir}/bin/pia-daemon";
@@ -70,6 +70,7 @@ in
       "d ${cfg.package.piaOptDir} 0755 root root -"
       "d ${cfg.package.piaOptDir}/etc 0755 root piavpn -"
       "d ${cfg.package.piaOptDir}/etc/cgroup 0755 root piavpn -"
+      "L+ ${cfg.package.piaOptDir}/etc/ssl - - - - ${cfg.package}${cfg.package.piaOptDir}/etc/ssl"
       "d ${cfg.package.piaOptDir}/var 0755 root piavpn -"
       "d ${cfg.package.piaOptDir}/var/crashes 0755 root piavpn -"
       "L+ ${cfg.package.piaOptDir}/bin - - - - ${cfg.package}${cfg.package.piaOptDir}/bin"

@@ -26,6 +26,10 @@
   coreutils,
   xkeyboardconfig,
   wireguard-tools,
+  findutils,
+  gnugrep,
+  gnused,
+  cacert,
   installOutDir ? "$out/opt/piavpn",
   ...
 }:
@@ -42,6 +46,9 @@ let
     util-linux
     coreutils
     wireguard-tools
+    findutils
+    gnugrep
+    gnused
   ];
   runtimeToolDirs = lib.concatMapStringsSep " " (tool: "${tool}/bin ${tool}/sbin") runtimeTools;
 in
@@ -149,6 +156,9 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/icons/hicolor/128x128/apps
     cp source/installfiles/app-icon.png $out/share/icons/hicolor/128x128/apps/piavpn.png
 
+    mkdir -p ${installOutDir}/etc/ssl
+    ln -s ${cacert}/etc/ssl/certs/ca-bundle.crt ${installOutDir}/etc/ssl/cert.pem
+
     substituteInPlace ${installOutDir}/bin/openvpn-updown.sh \
       --replace-fail "/usr/bin/busctl" "${systemd}/bin/busctl" \
       --replace-fail 'dns_servers="$(echo $1 | tr : \ )"' 'dns_servers="$(echo $1 | ${coreutils}/bin/tr : \ )"'
@@ -166,6 +176,13 @@ stdenv.mkDerivation rec {
     libDir = "${installOutDir}/lib";
     piaOptDir = "/opt/piavpn";
     runtimePath = "/opt/piavpn/nix-bin:/opt/piavpn/bin:/run/wrappers/bin";
+    runtimeLibPath = "/opt/piavpn/lib:${
+      lib.makeLibraryPath [
+        libxkbcommon
+        libnl.out
+        libnsl.out
+      ]
+    }";
   };
 
   meta = {
