@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       name = pname;
       desktopName = "Private Internet Access (PIA)";
       comment = "Private Internet Access VPN client";
-      exec = "${placeholder "out"}/bin/pia-client %u";
+      exec = "/opt/piavpn/bin/pia-client-wrapped %u";
       icon = pname;
       terminal = false;
       categories = [ "Network" ];
