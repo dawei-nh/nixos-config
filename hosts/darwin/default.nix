@@ -3,9 +3,7 @@
     ../../modules/darwin
   ];
 
-  networking.hostName = "LT-US24-MAC-137";
-
-  ids.gids.nixbld = 30000;
+  networking.hostName = "LT-US26-MAC-200";
 
   my.darwin = {
     sketchybar.enable = true;

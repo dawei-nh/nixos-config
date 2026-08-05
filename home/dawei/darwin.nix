@@ -33,14 +33,19 @@
   # https://github.com/nix-community/home-manager/issues/1341
   home.activation.aliasHomeManagerApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     app_folder="${config.home.homeDirectory}/Applications/Home Manager Trampolines"
+    app_source="$genProfilePath/home-path/Applications"
+
     rm -rf "$app_folder"
     mkdir -p "$app_folder"
-    find "$genProfilePath/home-path/Applications" -type l -print | while read -r app; do
-        app_target="$app_folder/$(basename "$app")"
-        real_app="$(readlink "$app")"
-        echo "mkalias \"$real_app\" \"$app_target\"" >&2
-        $DRY_RUN_CMD ${pkgs.mkalias}/bin/mkalias "$real_app" "$app_target"
-    done
+
+    if [ -d "$app_source" ]; then
+        find "$app_source" -type l -print | while read -r app; do
+            app_target="$app_folder/$(basename "$app")"
+            real_app="$(readlink "$app")"
+            echo "mkalias \"$real_app\" \"$app_target\"" >&2
+            $DRY_RUN_CMD ${pkgs.mkalias}/bin/mkalias "$real_app" "$app_target"
+        done
+    fi
   '';
 
   home.sessionVariables = {
