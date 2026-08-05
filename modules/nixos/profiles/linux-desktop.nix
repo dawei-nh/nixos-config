@@ -18,6 +18,7 @@ in
       desktop.plasma.enable = true;
       pipewire.enable = true;
       fstrim.enable = true;
+      piavpn.enable = true;
       nautilus.enable = true;
     };
 

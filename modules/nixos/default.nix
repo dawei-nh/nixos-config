@@ -9,6 +9,7 @@
     ./fstrim.nix
     ./impermanence.nix
     ./nautilus.nix
+    ./piavpn.nix
     ./pipewire.nix
     ./profiles/linux-desktop.nix
     ./steam.nix
