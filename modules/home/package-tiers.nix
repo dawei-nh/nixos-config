@@ -68,6 +68,8 @@ let
       dejavu_fonts
       powerline-fonts
       font-awesome
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
     ];
 
     dev = with pkgs; [
@@ -125,6 +127,7 @@ let
       python3
       screen
       wget
+      claude-code
       colima
       docker
     ];

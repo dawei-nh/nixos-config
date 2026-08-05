@@ -125,8 +125,8 @@
       };
 
       darwinConfigurations = {
-        LT-US24-MAC-137 = mkHost.darwin {
-          hostName = "LT-US24-MAC-137";
+        LT-US26-MAC-200 = mkHost.darwin {
+          hostName = "LT-US26-MAC-200";
           system = "aarch64-darwin";
           hostModule = ./hosts/darwin;
           homeUser = "david.huynh";

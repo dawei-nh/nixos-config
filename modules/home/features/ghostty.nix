@@ -7,6 +7,7 @@ let
     mkKeyValue = lib.generators.mkKeyValueDefault { } " = ";
   };
   keyValue = pkgs.formats.keyValue keyValueSettings;
+  generatedConfig = keyValue.generate "ghostty-config" cfg.settings;
   defaultPackage =
     if pkgs.stdenv.hostPlatform.isDarwin then
       pkgs.ghostty-bin
@@ -32,6 +33,9 @@ in
         font-size = 12;
         font-thicken = true;
         adjust-cell-height = "5%";
+      } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+        command = "${pkgs.bashInteractive}/bin/bash";
+        shell-integration = "bash";
       };
       description = "Ghostty settings written to the generated config file.";
     };
@@ -50,6 +54,10 @@ in
       enable = true;
       package = cfg.package;
       inherit (cfg) clearDefaultKeybinds settings themes;
+    };
+
+    home.file = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+      "Library/Application Support/com.mitchellh.ghostty/config".source = generatedConfig;
     };
   };
 }

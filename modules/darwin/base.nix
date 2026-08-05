@@ -6,16 +6,17 @@ let
 in
 {
   nix = {
-    gc = {
-      automatic = true;
-      interval = {
-        Weekday = 0;
-        Hour = 0;
-        Minute = 0;
-      };
-      options = "--delete-older-than 7d";
-    };
-    optimise.automatic = true;
+    enable = false;
+    #gc = {
+    #  automatic = true;
+    #  interval = {
+    #    Weekday = 0;
+    #    Hour = 0;
+    #    Minute = 0;
+    # };
+    #  options = "--delete-older-than 7d";
+    #};
+    #optimise.automatic = true;
     settings.experimental-features = [
       "nix-command"
       "flakes"
@@ -34,9 +35,6 @@ in
     EDITOR = "vim";
     MOZ_LEGACY_PROFILES = "1";
   };
-  environment.shells = [
-    pkgs.bashInteractive
-  ];
 
   users.users.${primaryUser} = {
     name = primaryUser;

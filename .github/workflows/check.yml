@@ -70,5 +70,5 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
 
-      - name: Evaluate LT-US24-MAC-137
-        run: nix eval .#darwinConfigurations.LT-US24-MAC-137.system.drvPath --raw --show-trace --accept-flake-config
+      - name: Evaluate LT-US26-MAC-200
+        run: nix eval .#darwinConfigurations.LT-US26-MAC-200.system.drvPath --raw --show-trace --accept-flake-config
