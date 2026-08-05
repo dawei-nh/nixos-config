@@ -4,7 +4,7 @@ Flake-driven NixOS, nix-darwin, and Home Manager configuration for:
 
 - `rabanastre`
 - `valendia`
-- `LT-US24-MAC-137`
+- `LT-US26-MAC-200`
 
 ## Common Commands
 
@@ -20,7 +20,7 @@ Build a host without switching:
 ```sh
 nix build .#nixosConfigurations.valendia.config.system.build.toplevel --show-trace
 nix build .#nixosConfigurations.rabanastre.config.system.build.toplevel --show-trace
-nix build .#darwinConfigurations.LT-US24-MAC-137.system --show-trace
+nix build .#darwinConfigurations.LT-US26-MAC-200.system --show-trace
 ```
 
 Switch a NixOS host:
@@ -33,7 +33,7 @@ sudo nixos-rebuild switch --flake .#valendia --show-trace
 Switch the Darwin host:
 
 ```sh
-darwin-rebuild switch --flake .#LT-US24-MAC-137 --show-trace
+darwin-rebuild switch --flake .#LT-US26-MAC-200 --show-trace
 ```
 
 Unfree packages are enabled in the flake/module configuration, so normal builds
