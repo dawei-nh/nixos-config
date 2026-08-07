@@ -110,6 +110,7 @@ let
       cura-appimage
       orca-slicer
       runelite
+      bolt-launcher
     ];
 
     gaming = with pkgs; [

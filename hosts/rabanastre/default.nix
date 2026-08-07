@@ -15,6 +15,16 @@
 
   nix.settings.build-dir = "/root/nix-build-tmp";
 
+  nixpkgs.overlays = [
+    (_final: prev: {
+      runelite = prev.runelite.overrideAttrs (oldAttrs: {
+        postFixup = (oldAttrs.postFixup or "") + ''
+          wrapProgram $out/bin/runelite --set GDK_SCALE 2
+        '';
+      });
+    })
+  ];
+
   systemd.tmpfiles.rules = [
     "d /root/nix-build-tmp 0755 root root -"
   ];
