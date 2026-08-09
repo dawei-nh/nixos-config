@@ -12,6 +12,11 @@ in
     services.flatpak.enable = true;
     virtualisation.docker.enable = true;
 
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+
     users.users.dawei.extraGroups = [ "docker" ];
 
     my.nixos = {

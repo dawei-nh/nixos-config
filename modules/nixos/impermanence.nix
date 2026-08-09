@@ -9,6 +9,7 @@ let
     { directory = "/var/lib/docker"; mode = "0710"; }
     "/var/lib/nixos"
     "/var/lib/NetworkManager"
+    "/var/lib/bluetooth"
     "/var/lib/systemd/backlight"
     "/var/lib/systemd/rfkill"
     { directory = "/var/lib/AccountsService"; mode = "0775"; }
