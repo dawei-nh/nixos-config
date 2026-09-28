@@ -35,10 +35,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    omp-nix = {
-      url = "git+https://git.molez.org/mandlm/omp-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    omp.url = "github:can1357/oh-my-pi";
 
     codex-cli-nix = {
       url = "github:sadjow/codex-cli-nix";
