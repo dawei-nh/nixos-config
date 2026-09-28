@@ -85,6 +85,7 @@ let
         azure-cli.extensions.aks-preview
         azure-cli.extensions.azure-devops
         azure-cli.extensions.fleet
+        azure-cli.extensions.quota
         azure-cli.extensions.terraform
       ])
       azure-functions-core-tools
@@ -126,6 +127,7 @@ let
       git
       htop
       python3
+      nodejs
       screen
       wget
       claude-code
