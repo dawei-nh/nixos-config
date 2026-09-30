@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -7,6 +7,8 @@
 
   programs.omp = {
     enable = true;
+    # Repackage upstream release binaries instead of compiling Rust and Bun.
+    package = pkgs.callPackage ../../../pkgs/omp-bin.nix { };
     settings = {
       symbolPreset = "nerd";
       theme.dark = "dark-tokyo-night";
