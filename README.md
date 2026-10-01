@@ -39,6 +39,23 @@ darwin-rebuild switch --flake .#LT-US26-MAC-200 --show-trace
 Unfree packages are enabled in the flake/module configuration, so normal builds
 do not need `NIXPKGS_ALLOW_UNFREE=1` or `--impure`.
 
+## Coding Agents
+
+Oh My Pi (`omp`) uses the hash-pinned upstream release binaries in
+[pkgs/omp-bin.nix](pkgs/omp-bin.nix) on x86_64 Linux, ARM64 Linux, and Apple
+Silicon macOS. Nix only installs the binary and supplies the Linux runtime
+libraries; there is no Rust or Bun compilation. The upstream `omp` flake
+provides the Home Manager settings module, with its source-building package
+overridden on every host.
+
+To update, change the version and per-platform SHA-256 hashes in that package
+using the upstream release's `SHA256SUMS.txt`, then run `nix flake check` and
+`nix build .#omp-bin`. Updating the `omp` flake input updates its settings
+module, independently of the installed binary version.
+
+Codex CLI (`codex`) is included in the shared `cli` package tier on every host
+as a fallback. It uses the prebuilt native release binary from `codex-cli-nix`.
+
 ## Binary Cache
 
 Use Cachix to prebuild expensive `rabanastre` outputs, such as the

@@ -3,7 +3,8 @@
 let
   cfg = config.my.home;
   xivlauncher-rb = inputs.xivlauncher-rb.packages.${pkgs.stdenv.hostPlatform.system}.xivlauncher-rb or null;
-  codex = inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  # Keep the prebuilt native Codex CLI available as a fallback to omp.
+  codex = inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.codex;
 
   basePackageTiers = [
     "core"
