@@ -1,9 +1,38 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   xb270_edid = pkgs.runCommand "xb270_edid" { compressFirmware = false; } ''
     mkdir -p $out/lib/firmware/edid
     cp ${./xb270hu.bin} $out/lib/firmware/edid/xb270hu.bin
+  '';
+
+  sunshineOutput = "DP-1";
+  sunshineDesktopMode = "3440x1440@144";
+  kscreenDoctor = "${pkgs.kdePackages.libkscreen}/bin/kscreen-doctor";
+  steam = "${config.programs.steam.package}/bin/steam";
+  setsid = "${pkgs.util-linux}/bin/setsid";
+  setpriv = "${pkgs.util-linux}/bin/setpriv";
+  timeout = "${pkgs.coreutils}/bin/timeout";
+
+  sunshineSetClientMode = pkgs.writeShellScript "sunshine-set-client-mode" ''
+    set -u
+    ${timeout} --kill-after=1 5 \
+      ${kscreenDoctor} "output.${sunshineOutput}.mode.''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}" \
+      || true
+  '';
+
+  sunshineRestoreDesktop = pkgs.writeShellScript "sunshine-restore-desktop" ''
+    ${setpriv} --inh-caps=-all --ambient-caps=-all ${setsid} ${steam} steam://close/bigpicture || true
+    ${timeout} --kill-after=1 5 ${kscreenDoctor} output.${sunshineOutput}.mode.${sunshineDesktopMode} || true
+  '';
+
+  sunshineOpenSteamBigPicture = pkgs.writeShellScript "sunshine-open-steam-big-picture" ''
+    exec ${setpriv} --inh-caps=-all --ambient-caps=-all ${setsid} ${steam} -gamepadui steam://open/bigpicture
   '';
 in
 {
@@ -44,14 +73,14 @@ in
           output = "/var/log/sunshine.log";
           prep-cmd = [
             {
-              do = "${pkgs.kdePackages.libkscreen}/bin/kscreen-doctor output.DP-1.mode.1920x1080@60";
-              undo = "${pkgs.kdePackages.libkscreen}/bin/kscreen-doctor output.DP-1.mode.3440x1440@144";
+              do = "${sunshineSetClientMode}";
+              undo = "${sunshineRestoreDesktop}";
             }
           ];
           exclude-global-prep-cmd = "false";
           auto-detach = "true";
           image-path = "steam.png";
-          detached = [ "${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://open/bigpicture" ];
+          detached = [ "${sunshineOpenSteamBigPicture}" ];
         }
       ];
     };
