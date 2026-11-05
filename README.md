@@ -39,6 +39,23 @@ darwin-rebuild switch --flake .#LT-US26-MAC-200 --show-trace
 Unfree packages are enabled in the flake/module configuration, so normal builds
 do not need `NIXPKGS_ALLOW_UNFREE=1` or `--impure`.
 
+## Dependency Updates
+
+Run `nix flake update`, then `nix flake check --show-trace` and the affected
+host builds before switching.
+
+Impermanence uses its current NixOS module rather than the legacy
+`home-manager-v1` branch. The module owns the persistence bind mounts, including
+boot-critical mounts in the systemd initrd. Keep the existing `/persist/system`
+storage paths; do not add device-less `fileSystems` entries for those bind mounts.
+Scripted-initrd options such as `boot.initrd.verbose` are no longer supported.
+
+The `devops` package tier scopes Invoke 2.2.1 to Azure CLI and its extensions
+because Fabric does not yet support Invoke 3
+([upstream issue](https://github.com/fabric/fabric/issues/2376)). Other packages
+keep nixpkgs' default Invoke version. Remove this scoped override once upstream
+Fabric/nixpkgs supports Invoke 3; do not bypass the broken-package check.
+
 ## Coding Agents
 
 Oh My Pi (`omp`) uses the hash-pinned upstream release binaries in
