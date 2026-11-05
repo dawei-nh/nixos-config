@@ -6,6 +6,23 @@ let
   # Keep the prebuilt native Codex CLI available as a fallback to omp.
   codex = inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.codex;
 
+  # Fabric used by Azure CLI does not support Invoke 3 yet.
+  # Scope the compatible Invoke version to Azure CLI and its extensions.
+  azureCli = (pkgs.extend (_final: prev: {
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      (_pythonFinal: pythonPrev: {
+        invoke = pythonPrev.invoke.overridePythonAttrs (_old: rec {
+          version = "2.2.1";
+          src = pkgs.fetchPypi {
+            pname = "invoke";
+            inherit version;
+            hash = "sha256-UVv0m0pIkyt5sCRZA0jaIvOcSULf+ZGtH7i4uuob5wc=";
+          };
+        });
+      })
+    ];
+  })).azure-cli;
+
   basePackageTiers = [
     "core"
     "archives"
@@ -82,12 +99,12 @@ let
       kubelogin
       kubernetes-helm
       k9s
-      (azure-cli.withExtensions [
-        azure-cli.extensions.aks-preview
-        azure-cli.extensions.azure-devops
-        azure-cli.extensions.fleet
-        azure-cli.extensions.quota
-        azure-cli.extensions.terraform
+      (azureCli.withExtensions [
+        azureCli.extensions.aks-preview
+        azureCli.extensions.azure-devops
+        azureCli.extensions.fleet
+        azureCli.extensions.quota
+        azureCli.extensions.terraform
       ])
       azure-functions-core-tools
       awscli2

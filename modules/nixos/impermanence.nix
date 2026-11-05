@@ -17,14 +17,6 @@ let
     { directory = "/var/lib/sddm"; mode = "0700"; }
     { directory = "/var/tmp"; mode = "1777"; }
   ];
-
-  persistedDirectoryPaths = map (
-    directory:
-    if builtins.isString directory then
-      directory
-    else
-      directory.directory
-  ) persistedDirectories;
 in
 {
   options.my.nixos.impermanence.enable = lib.mkEnableOption "impermanence persistence";
@@ -34,10 +26,5 @@ in
       hideMounts = true;
       directories = persistedDirectories;
     };
-
-    fileSystems = builtins.listToAttrs (map (directory: {
-      name = directory;
-      value.fsType = "none";
-    }) persistedDirectoryPaths);
   };
 }

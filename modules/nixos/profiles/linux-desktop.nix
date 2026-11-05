@@ -1,14 +1,19 @@
-{ lib, config, ... }:
+{ inputs, lib, config, ... }:
 
 let
   cfg = config.my.nixos.profiles.linuxDesktop;
 in
 {
+  imports = [
+    inputs.codex-desktop-linux.nixosModules.default
+  ];
+
   options.my.nixos.profiles.linuxDesktop.enable = lib.mkEnableOption "shared Linux desktop profile";
 
   config = lib.mkIf cfg.enable {
     networking.networkmanager.enable = true;
     programs.nix-ld.enable = true;
+    programs.codexDesktopLinux.enable = true;
     services.flatpak.enable = true;
     virtualisation.docker.enable = true;
 
@@ -46,7 +51,6 @@ in
         "vt.global_cursor_default=0"
       ];
       consoleLogLevel = 0;
-      initrd.verbose = false;
     };
 
     console = {
