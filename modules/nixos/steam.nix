@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   options.my.nixos.steam.enable = lib.mkEnableOption "Steam";
@@ -7,6 +12,9 @@
     programs.gamemode.enable = true;
     programs.steam = {
       enable = true;
+      package = pkgs.steam.override {
+        extraArgs = "-pipewire";
+      };
       gamescopeSession.enable = true;
       remotePlay.openFirewall = true;
     };

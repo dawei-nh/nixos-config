@@ -42,6 +42,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    codex-desktop-linux = {
+      url = "github:ilysenko/codex-desktop-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     impermanence = {
       url = "github:nix-community/impermanence/home-manager-v1";
     };
@@ -88,7 +93,11 @@
       mkHost = import ./lib/mk-host.nix { inherit inputs; };
     in
     {
-      packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
+      packages = forEachPkgs (pkgs:
+        import ./pkgs { inherit pkgs; }
+        // nixpkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+          codex-desktop = inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop;
+        });
       devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
       formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
 
