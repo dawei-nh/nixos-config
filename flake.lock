@@ -127,6 +127,26 @@
         "type": "github"
       }
     },
+    "curseforge": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793648540,
+        "narHash": "sha256-k/MtVusiIThgHyL7iN8EyQHVCvPXyKmqJlLrEJIXy7E=",
+        "owner": "spitfire05",
+        "repo": "curseforge-appimage-nix",
+        "rev": "02e627637633b7d81b328a5e4dec4052a0186077",
+        "type": "github"
+      },
+      "original": {
+        "owner": "spitfire05",
+        "repo": "curseforge-appimage-nix",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -510,6 +530,7 @@
         "aagl": "aagl",
         "codex-cli-nix": "codex-cli-nix",
         "codex-desktop-linux": "codex-desktop-linux",
+        "curseforge": "curseforge",
         "darwin": "darwin",
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",

@@ -113,6 +113,19 @@ After rebuilding and switching the host, fully quit and relaunch Zen so its
 media processes inherit the codec-enabled library path. A custom
 `my.features.zen.package` override must supply its own codec-enabled wrapper.
 
+## Gaming
+
+The `gaming` package tier includes
+[CurseForge](https://github.com/spitfire05/curseforge-appimage-nix) alongside
+WowUp. `valendia` is currently the only host selecting this tier. The upstream
+CurseForge package supports `x86_64-linux`; unsupported systems omit it.
+
+Launch it with `curseforge` or the CurseForge desktop launcher. To update, run
+`nix flake update curseforge`, then check and build `valendia` before switching.
+Upstream pins the AppImage download hash even though its download URL always
+points to the latest release. If that hash stops matching, refresh the upstream
+input rather than replacing the hash without verifying the release.
+
 ## Binary Cache
 
 Use Cachix to prebuild expensive `rabanastre` outputs, such as the
