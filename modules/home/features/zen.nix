@@ -3,17 +3,7 @@
 let
   cfg = config.my.features.zen;
   zenPackages = inputs.zen-browser.packages or { };
-  upstreamPackage = zenPackages.${pkgs.stdenv.hostPlatform.system}.default or null;
-  # The upstream flake still sets ffmpegSupport; nixpkgs now reads withFFmpeg.
-  defaultPackage =
-    if upstreamPackage == null then null else
-    pkgs.wrapFirefox
-      (upstreamPackage.unwrapped.overrideAttrs (old: {
-        passthru = old.passthru // { withFFmpeg = true; };
-      }))
-      {
-        pname = "zen-browser";
-      };
+  defaultPackage = zenPackages.${pkgs.stdenv.hostPlatform.system}.default or null;
   desktopFile = "zen.desktop";
 in
 {

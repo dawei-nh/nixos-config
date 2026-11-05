@@ -80,19 +80,20 @@ against its shared user profile.
 ## Zen Browser
 
 The Linux desktop profile installs Zen through
-[modules/home/features/zen.nix](modules/home/features/zen.nix). The module
-re-wraps the pinned upstream binary with nixpkgs' `withFFmpeg` flag enabled.
-The upstream flake still uses the older `ffmpegSupport` flag, which the current
-wrapper ignores; without FFmpeg in the launcher's library path, H.264 playback
-and H.264 MediaSource support fail, affecting Twitch.
+[modules/home/features/zen.nix](modules/home/features/zen.nix). The pinned upstream
+flake enables nixpkgs' `withFFmpeg` support, making H.264 playback and H.264
+MediaSource support available for sites such as Twitch.
 
-The wrapper currently selects compatible FFmpeg 8 libraries for Zen's version
-number. This is browser-local and does not downgrade system FFmpeg. Do not use
-the Arch `/usr/local/lib` workaround from
+The Zen input was refreshed to 1.24b after the previous 1.23.3b release archive
+failed its pinned SHA-256 check. To update, run `nix flake update zen-browser`,
+then check and build the affected host before switching.
+
+FFmpeg libraries are browser-local and do not downgrade system FFmpeg. Do not
+use the Arch `/usr/local/lib` workaround from
 [Zen issue #14889](https://github.com/zen-browser/desktop/issues/14889).
 
 After rebuilding and switching the host, fully quit and relaunch Zen so its
-media processes inherit the corrected library path. A custom
+media processes inherit the codec-enabled library path. A custom
 `my.features.zen.package` override must supply its own codec-enabled wrapper.
 
 ## Binary Cache
