@@ -56,6 +56,12 @@ because Fabric does not yet support Invoke 3
 keep nixpkgs' default Invoke version. Remove this scoped override once upstream
 Fabric/nixpkgs supports Invoke 3; do not bypass the broken-package check.
 
+The Surface kernel on `rabanastre` backports Linux commit
+[`905b06d32a52`](https://github.com/torvalds/linux/commit/905b06d32a52afe32fcf5f30cf298c9ea6359f11)
+for Rust 1.98+ target-spec compatibility. Remove that kernel patch once the
+`nixos-hardware` Surface kernel includes it; keep the Surface hardware patches
+and Rust support enabled.
+
 ## Coding Agents
 
 Oh My Pi (`omp`) uses the hash-pinned upstream release binaries in
