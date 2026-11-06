@@ -3,6 +3,7 @@
 let
   cfg = config.my.home;
   xivlauncher-rb = inputs.xivlauncher-rb.packages.${pkgs.stdenv.hostPlatform.system}.xivlauncher-rb or null;
+  curseforge = inputs.curseforge.packages.${pkgs.stdenv.hostPlatform.system}.default or null;
   # Keep the prebuilt native Codex CLI available as a fallback to omp.
   codex = inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.codex;
 
@@ -138,7 +139,8 @@ let
       protonup-qt
       umu-launcher
       wowup-cf
-    ] ++ lib.optional (xivlauncher-rb != null) xivlauncher-rb;
+    ] ++ lib.optional (xivlauncher-rb != null) xivlauncher-rb
+    ++ lib.optional (curseforge != null) curseforge;
 
     mac = with pkgs; [
       bat
