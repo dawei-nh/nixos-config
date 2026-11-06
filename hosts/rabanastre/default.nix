@@ -43,6 +43,17 @@
   };
 
   boot = {
+    # The Surface 6.19.8 kernel predates Rust 1.98's softfloat ABI rename.
+    # Remove this backport once nixos-hardware includes the upstream fix.
+    kernelPatches = [
+      {
+        name = "rust-x86-support-rust-1.98-target-spec";
+        patch = pkgs.fetchurl {
+          url = "https://github.com/torvalds/linux/commit/905b06d32a52afe32fcf5f30cf298c9ea6359f11.patch";
+          hash = "sha256-HoCjPlgF7ZxY0W4a4dfyUmpJMHF+p5US1gLKKPUgjhM=";
+        };
+      }
+    ];
     blacklistedKernelModules = [
       "ipu3_imgu"
     ];

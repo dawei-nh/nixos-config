@@ -54,13 +54,21 @@ changes on a pushed commit. It also supports manual runs through
 The workflow:
 
 1. Installs Nix.
-2. Configures the Cachix cache.
-3. Builds `.#nixosConfigurations.rabanastre.config.boot.kernelPackages.kernel`.
-4. Builds `.#nixosConfigurations.rabanastre.config.system.modulesTree`.
-5. Pushes the kernel and module tree closures to Cachix.
+2. Configures dedicated unprivileged Nix build users.
+3. Configures the Cachix cache.
+4. Builds `.#nixosConfigurations.rabanastre.config.boot.kernelPackages.kernel`.
+5. Builds `.#nixosConfigurations.rabanastre.config.system.modulesTree`.
+6. Pushes the kernel and module tree closures to Cachix.
 
 This means cache work happens when dependencies move, rather than on a nightly
 schedule.
+
+The self-hosted runner executes the workflow as root. In a container without
+systemd, the Nix installation action disables build users, so the workflow
+creates the `nixbld` group and its build accounts, then re-enables
+`build-users-group` after installation. Builders must not run as root: without
+sandboxing, root can treat symlinked store inputs as writable and mutate them
+while assembling the kernel module tree.
 
 ## Manual cache push
 

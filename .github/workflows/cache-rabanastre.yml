@@ -25,6 +25,21 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
 
+      - name: Configure unprivileged Nix build users
+        run: |
+          if ! getent group nixbld >/dev/null; then
+            groupadd --system nixbld
+          fi
+          for index in {1..10}; do
+            if ! id -u "nixbld$index" >/dev/null 2>&1; then
+              useradd --system --gid nixbld --groups nixbld \
+                --no-create-home --home-dir /var/empty --shell /bin/false \
+                "nixbld$index"
+            fi
+          done
+          # The install action disables build users in non-systemd containers.
+          echo 'build-users-group = nixbld' >> /etc/nix/nix.conf
+
       - name: Configure Cachix
         uses: cachix/cachix-action@v17
         with:
