@@ -20,10 +20,10 @@ in
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      home.packages = lib.mkIf pkgs.stdenv.isDarwin [ cfg.package ];
+      home.packages = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin [ cfg.package ];
     }
 
-    (lib.mkIf pkgs.stdenv.isLinux {
+    (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       programs.firefox = {
         enable = true;
         package = cfg.package;
