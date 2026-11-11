@@ -12,6 +12,7 @@
     ./piavpn.nix
     ./pipewire.nix
     ./profiles/linux-desktop.nix
+    ./sidestore.nix
     ./steam.nix
     ./sunshine.nix
     ./tailscale.nix

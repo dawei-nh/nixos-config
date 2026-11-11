@@ -53,6 +53,7 @@ in
   my.nixos = {
     impermanence.enable = true;
     profiles.linuxDesktop.enable = true;
+    sidestore.enable = true;
     sunshine.enable = true;
     steam.enable = true;
   };
