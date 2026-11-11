@@ -4,6 +4,13 @@ let
   cfg = config.my.home;
   xivlauncher-rb = inputs.xivlauncher-rb.packages.${pkgs.stdenv.hostPlatform.system}.xivlauncher-rb or null;
   curseforge = inputs.curseforge.packages.${pkgs.stdenv.hostPlatform.system}.default or null;
+  lightforgePackages = inputs.lightforge.packages.${pkgs.stdenv.hostPlatform.system} or null;
+  lightforge = pkgs.callPackage (inputs.lightforge.outPath + "/packaging/nix/fhs.nix") {
+    lightforge-unwrapped = lightforgePackages.lightforge-unwrapped.overrideAttrs (old: {
+      # Nixpkgs configures zstd-sys to use the system library via pkg-config.
+      buildInputs = old.buildInputs ++ [ pkgs.zstd ];
+    });
+  };
   # Keep the prebuilt native Codex CLI available as a fallback to omp.
   codex = inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.codex;
 
@@ -140,7 +147,8 @@ let
       umu-launcher
       wowup-cf
     ] ++ lib.optional (xivlauncher-rb != null) xivlauncher-rb
-    ++ lib.optional (curseforge != null) curseforge;
+    ++ lib.optional (curseforge != null) curseforge
+    ++ lib.optional (lightforgePackages != null) lightforge;
 
     mac = with pkgs; [
       bat

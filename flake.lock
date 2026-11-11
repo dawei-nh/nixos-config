@@ -348,6 +348,27 @@
         "type": "github"
       }
     },
+    "lightforge": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794051215,
+        "narHash": "sha256-sLFhnGsH4Nxfx0Q5KYpPXP6I4zH01UIA4rBa7Rl74Yo=",
+        "owner": "LightforgeProject",
+        "repo": "lightforge",
+        "rev": "428c8b38dc0e789ab72c62e11a48043acecb4d0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LightforgeProject",
+        "ref": "v1.0.0-beta.11",
+        "repo": "lightforge",
+        "type": "github"
+      }
+    },
     "nix-bun": {
       "inputs": {
         "nixpkgs": [
@@ -535,6 +556,7 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "lightforge": "lightforge",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

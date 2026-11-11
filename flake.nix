@@ -87,6 +87,11 @@
       url = "github:spitfire05/curseforge-appimage-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lightforge = {
+      url = "github:LightforgeProject/lightforge/v1.0.0-beta.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
