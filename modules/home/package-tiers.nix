@@ -3,7 +3,12 @@
 let
   cfg = config.my.home;
   xivlauncher-rb = inputs.xivlauncher-rb.packages.${pkgs.stdenv.hostPlatform.system}.xivlauncher-rb or null;
-  curseforge = inputs.curseforge.packages.${pkgs.stdenv.hostPlatform.system}.default or null;
+  # Use the host package set so CurseForge inherits its unfree license policy.
+  curseforge =
+    if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
+      (pkgs.extend inputs.curseforge.overlays.default).curseforge
+    else
+      null;
   lightforge = inputs.lightforge.packages.${pkgs.stdenv.hostPlatform.system}.default or null;
   # Keep the prebuilt native Codex CLI available as a fallback to omp.
   codex = inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.codex;
