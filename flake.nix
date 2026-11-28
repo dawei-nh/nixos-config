@@ -82,7 +82,7 @@
     };
 
     lightforge = {
-      url = "github:LightforgeProject/lightforge/v1.0.0-beta.13";
+      url = "github:LightforgeProject/lightforge/v1.0.0-beta.14";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

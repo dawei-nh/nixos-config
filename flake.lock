@@ -112,11 +112,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795102042,
-        "narHash": "sha256-VQAopmZBAMxJ0F1ic1+s/nKtAkharblkhTuHFwQge8Q=",
+        "lastModified": 1795546744,
+        "narHash": "sha256-xghVpAw67nJclm1V63Jz7Hpk18mzifa9H9Rj/u4uFEY=",
         "owner": "spitfire05",
         "repo": "curseforge-appimage-nix",
-        "rev": "18d510fa571bbcdf2a9d5249235b5c9c2fe0f6c4",
+        "rev": "9781a194a9c18e63be8b8a86a92a277e98ff50f7",
         "type": "github"
       },
       "original": {
@@ -317,16 +317,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1794614654,
-        "narHash": "sha256-CmK1VrjuABzCL8Is1zNiZzCYZCEr5QVLOTCDRm9El9A=",
+        "lastModified": 1795796190,
+        "narHash": "sha256-nhfLmUNqhUggMVOYmBDmRcKQjLf1Dr3h0GZTN4WQDN8=",
         "owner": "LightforgeProject",
         "repo": "lightforge",
-        "rev": "e6fd76fb79e8916e31cd6914988972bcb089cdac",
+        "rev": "e9c30d89565f8efbf97a869565da882ff16f302a",
         "type": "github"
       },
       "original": {
         "owner": "LightforgeProject",
-        "ref": "v1.0.0-beta.13",
+        "ref": "v1.0.0-beta.14",
         "repo": "lightforge",
         "type": "github"
       }
