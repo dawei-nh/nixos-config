@@ -317,16 +317,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1794614654,
-        "narHash": "sha256-CmK1VrjuABzCL8Is1zNiZzCYZCEr5QVLOTCDRm9El9A=",
+        "lastModified": 1795796190,
+        "narHash": "sha256-nhfLmUNqhUggMVOYmBDmRcKQjLf1Dr3h0GZTN4WQDN8=",
         "owner": "LightforgeProject",
         "repo": "lightforge",
-        "rev": "e6fd76fb79e8916e31cd6914988972bcb089cdac",
+        "rev": "e9c30d89565f8efbf97a869565da882ff16f302a",
         "type": "github"
       },
       "original": {
         "owner": "LightforgeProject",
-        "ref": "v1.0.0-beta.13",
+        "ref": "v1.0.0-beta.14",
         "repo": "lightforge",
         "type": "github"
       }

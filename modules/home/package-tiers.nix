@@ -118,6 +118,7 @@ let
       usbutils
       cura-appimage
       orca-slicer
+      (callPackage ../../pkgs/snapmaker-orca.nix { })
       runelite
       bolt-launcher
     ];
